@@ -1,0 +1,54 @@
+name: Setup Employees DB
+
+on:
+  workflow_dispatch:  # Allows manual triggering
+  push:
+    paths:
+      - '**.yml'
+
+jobs:
+  setup-db:
+    runs-on: ubuntu-latest
+
+    services:
+      mysql:
+        image: mysql:9.1.0
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: employees
+        ports:
+          - 3306:3306
+        options: >-
+          --health-cmd="mysqladmin ping --silent"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
+
+    steps:
+      - name: Checkout this repository
+        uses: actions/checkout@v3
+
+      - name: Install prerequisites
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y git
+
+      - name: Clone test_db repository
+        run: git clone https://github.com/datacharmer/test_db.git
+
+      - name: Clean employees.sql
+        run: |
+          cd test_db
+          grep -v -e "flush" -e "SELECT 'LOADING" -e "source load_" -e "source show_" employees.sql > employees_clean.sql
+
+      - name: Import employees_clean.sql
+        run: |
+          mysql -h 127.0.0.1 -u root -proot -e "DROP DATABASE IF EXISTS employees; CREATE DATABASE employees;"
+          mysql -h 127.0.0.1 -u root -proot employees < test_db/employees_clean.sql
+
+      - name: Load data files
+        run: |
+          for file in load_*.dump; do
+            echo "Importing $file"
+            mysql -h 127.0.0.1 -u root -proot --local-infile=1 employees < test_db/$file
+          done
