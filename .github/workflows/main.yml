@@ -15,3 +15,7 @@ jobs:
 
       - name: Run hello.sh script
         run: ./hello.sh  # Now it should work without permission errors
+      - name: Run hello2.sh script
+        run: ./hello2.sh 
+      - name: Run hello3.sh script
+        run: ./hello3.sh
