@@ -18,5 +18,8 @@ jobs:
       - name: Show NODE_ENV
         run: |
           echo ${{ vars.MY_NAME }}
+      - name: Show ENV_VAriable
+        run : |
+         echo ${{ secrets.USERNAME }}
 
   
