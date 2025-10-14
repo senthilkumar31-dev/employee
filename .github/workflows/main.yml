@@ -21,5 +21,8 @@ jobs:
       - name: Show ENV_VAriable
         run : |
          echo ${{ secrets.USERNAME }}
+      - name: Show EnvVAriables
+        run: |
+         echo ${{ vars.USERNAMEENV }}
 
   
