@@ -8,7 +8,7 @@ env:
 
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout repository
@@ -16,4 +16,4 @@ jobs:
 
       - name: Run hello.sh script with WSL
         run: |
-          wsl bash ./hello.sh
+          ./hello.sh
