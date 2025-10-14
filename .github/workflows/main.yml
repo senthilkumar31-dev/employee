@@ -2,27 +2,14 @@ name: CI Workflow
 
 on: [push]
 
-env:
-  APP_NAME: MYAPP
-  NODE_ENV: production
-
 jobs:
   build:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest  # Use Linux runner if you're using a .sh script
 
     steps:
-      - name: Show APP_NAME
-        run: |
-          echo "APP_NAME: $env:APP_NAME"
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-      - name: Show NODE_ENV
-        run: |
-          echo ${{ vars.MY_NAME }}
-      - name: Show ENV_VAriable
-        run : |
-         echo ${{ secrets.USERNAME }}
-      - name: Show EnvVAriables
+      - name: Run hello.sh script
         run: |
           ./hello.sh
-
-  
