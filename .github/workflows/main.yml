@@ -23,6 +23,6 @@ jobs:
          echo ${{ secrets.USERNAME }}
       - name: Show EnvVAriables
         run: |
-         echo ${{ vars.USERNAMEENV }}
+          ./hello.sh
 
   
