@@ -10,12 +10,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Make hello.sh executable
-        run: chmod +x hello.sh  # Make the script executable
+      - name: Make all .sh scripts executable
+        run: chmod +x hello.sh hello2.sh hello3.sh  # Make all scripts executable
 
       - name: Run hello.sh script
-        run: ./hello.sh  # Now it should work without permission errors
+        run: ./hello.sh  # Run the first script
+
       - name: Run hello2.sh script
-        run: ./hello2.sh 
+        run: ./hello2.sh  # Run the second script
+
       - name: Run hello3.sh script
-        run: ./hello3.sh
+        run: ./hello3.sh  # Run the third script
