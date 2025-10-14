@@ -2,18 +2,16 @@ name: CI Workflow
 
 on: [push]
 
-env:
-  APP_NAME: MYAPP
-  NODE_ENV: production
-
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest  # Use Linux runner
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Run hello.sh script with WSL
-        run: |
-          ./hello.sh
+      - name: Make hello.sh executable
+        run: chmod +x hello.sh  # Make the script executable
+
+      - name: Run hello.sh script
+        run: ./hello.sh  # Now it should work without permission errors
