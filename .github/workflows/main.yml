@@ -2,14 +2,18 @@ name: CI Workflow
 
 on: [push]
 
+env:
+  APP_NAME: MYAPP
+  NODE_ENV: production
+
 jobs:
   build:
-    runs-on: ubuntu-latest  # Use Linux runner if you're using a .sh script
+    runs-on: windows-latest
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Run hello.sh script
+      - name: Run hello.sh script with WSL
         run: |
-          ./hello.sh
+          wsl bash ./hello.sh
