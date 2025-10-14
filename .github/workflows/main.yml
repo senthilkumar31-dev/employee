@@ -17,4 +17,6 @@ jobs:
 
       - name: Show NODE_ENV
         run: |
-          echo "NODE_ENV: $env:NODE_ENV"
+          echo ${{ vars.MY_NAME }}
+
+  
