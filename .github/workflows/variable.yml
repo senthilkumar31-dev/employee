@@ -1,0 +1,18 @@
+name: Pass Variable Between Steps
+
+on: [push]
+
+jobs:
+  example:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Step 1 - Create variable and export as output
+        id: step1
+        run: |
+          MY_VALUE="Hello from Step 1"
+          echo "my_var=$MY_VALUE" >> $GITHUB_OUTPUT
+
+      - name: Step 2 - Use the variable from step 1
+        run: |
+          echo "The value passed from step 1 is: ${{ steps.step1.outputs.my_var }}"
