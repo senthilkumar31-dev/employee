@@ -24,11 +24,13 @@ jobs:
           echo "a=$A_VALUE" >> $GITHUB_OUTPUT
 
       - name: Step 4 - Use variable a and define b = 10
+        id: step3
         run: |
           A=${{ steps.step2.outputs.a }}
           B=10
           RESULT=$((A + B))
-          echo "The Value is added result is: $RESULT" >> $GITHUB_OUTPUT
+          echo "The Value is added result is: $RESULT" 
+          echo "result=$RESULT" >> $GITHUB_OUTPUT
       - name: Print the result 
         run: |
-         echo "The Total value is : $RESULT"
+         echo "The Total value is : ${{ steps.step3.outputs.result}}"
