@@ -28,7 +28,7 @@ jobs:
           A=${{ steps.step2.outputs.a }}
           B=10
           RESULT=$((A + B))
-          echo "The Value is added result is: $RESULT"
+          echo "The Value is added result is: $RESULT" >> $GITHUB_OUTPUT
       - name: Print the result 
         run: |
          echo "The Total value is : $RESULT"
