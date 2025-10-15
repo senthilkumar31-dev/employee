@@ -1,21 +1,20 @@
-
-name: Pass Variable Between to jobs
+name: Pass Variable Between Jobs
 
 on: [push]
 
 jobs:
-  jobs1:
-   runs-on: ubuntu-latest
-   outputs:
-    myvalue: ${{ steps.set-output-steps.outputs.my_output}}
-  steps:
-   - name: Set a Value
-     id: set-output-steps
-     run: echo "my_output=Hello this job one variables" >> $GITHUB_OUTPUT
-  
-  jobs2:
-    needs: jobs1
+  job1:
+    runs-on: ubuntu-latest
+    outputs:
+      myvalue: ${{ steps.set-output-step.outputs.my_output }}
+    steps:
+      - name: Set a Value
+        id: set-output-step
+        run: echo "my_output=Hello this job one variable" >> $GITHUB_OUTPUT
+
+  job2:
+    needs: job1
     runs-on: windows-latest
     steps:
-     - name: Print the value from JOb 1
-       run: echo "Value from job 1 is ${{needs.jobs1.outputs.myvalue}}"
+      - name: Print the value from Job 1
+        run: echo "Value from job 1 is ${{ needs.job1.outputs.myvalue }}"
