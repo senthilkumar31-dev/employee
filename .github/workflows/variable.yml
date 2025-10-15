@@ -29,3 +29,6 @@ jobs:
           B=10
           RESULT=$((A + B))
           echo "The Value is added result is: $RESULT"
+      - name: Print the result 
+        run: |
+         echo "The Total value is : $RESULT"
