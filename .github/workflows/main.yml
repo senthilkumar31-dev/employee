@@ -21,3 +21,10 @@ jobs:
 
       - name: Run hello3.sh script
         run: ./hello3.sh  # Run the third script
+
+      - name: Step 1 - Generate Value
+        id: step1  # Add an ID to this step
+        run: echo "::set-output name=my_output::$(date)"  # Set the output with the ID
+
+      - name: Step 2 - Use output from Step 1
+        run: echo "The output from Step 1 is: ${{ steps.step1.outputs.my_output }}"  # Access the output correctly
