@@ -34,3 +34,9 @@ jobs:
       - name: Print the result 
         run: |
          echo "The Total value is : ${{ steps.step3.outputs.result}}"
+      - name: Env variable
+        run: |
+          echo "My_Env="This Env Variable" >> $GITHUB_ENV
+      - name: Print the Env variable
+        run: |
+          echo "The value is $My_Env"
