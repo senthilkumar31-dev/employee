@@ -1,4 +1,4 @@
-name: Build and Upload Artifact
+name: Build and Download Artifact
 
 on: [push]
 
@@ -7,15 +7,29 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+    - name: Checkout code
+      uses: actions/checkout@v4
 
-      - name: Build Project (Simulate)
-        run: |
-          mkdir output
-          echo "Hello GitHub Actions!" > output/hello.txt
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: my-artifact
-          path: output
+    - name: Build output
+      run: |
+        mkdir output
+        echo "This is from job 1" > output/job1.txt
+
+    - name: Upload artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: shared-artifact
+        path: output/
+
+  download:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Download artifact
+      uses: actions/download-artifact@v4
+      with:
+        name: shared-artifact
+
+    - name: List files
+      run: ls -R
